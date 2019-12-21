@@ -4,6 +4,33 @@
   {% set default_locale = 'en_US' %}
 {% endif %}
 <meta property="og:site_name" content="{{ SITENAME }}"/>
+{% if article.featured_image is defined %}
+<meta property="og:image" content="{{ article.featured_image }}">
+{% elif article.featured_image is not defined and article.cover is defined %}
+<meta property="og:image" content="{{ article.cover }}">
+{% elif article.featured_image is not defined and article.cover is not defined and SITELOGO %}
+<meta property="og:image" content="{{ SITELOGO }}">
+{% else %}
+{% endif %}
+{% if article.featured_image_width is defined %}
+<meta property="og:image:width" content="{{ article.featured_image_width }}">
+{% elif article.featured_image_width is not defined and article.cover_width is defined %}
+<meta property="og:image:width" content="{{ article.cover_width }}">
+{% elif article.featured_image_width is not defined and article.cover_width is not defined and SITELOGO_WIDTH %}
+<meta property="og:image:width" content="{{ SITELOGO_WIDTH }}">
+{% else %}
+{% endif %}
+{% if article.featured_image_height is defined %}
+<meta property="og:image:height" content="{{ article.featured_image_height }}">
+{% elif article.featured_image_height is not defined and article.cover_height is defined %}
+<meta property="og:image:height" content="{{ article.cover_height }}">
+{% elif article.featured_image_height is not defined and article.cover_height is not defined and SITELOGO_HEIGHT %}
+<meta property="og:image:height" content="{{ SITELOGO_HEIGHT }}">
+{% else %}
+{% endif %}
+{% if FB_APP_ID %}
+<meta property="fb:app_id" content="{{ FB_APP_ID }}">
+{% endif %}
 <meta property="og:title" content="{{ article.title|striptags|escape }}"/>
 {% if article.description %}
 <meta property="og:description" content="{{ article.description|striptags|escape }}"/>
@@ -20,11 +47,3 @@
 {% for tag in article.tags %}
 <meta property="article:tag" content="{{ tag.name|escape }}"/>
 {% endfor %}
-{% if article.featured_image is defined %}
-<meta property="og:image" content="{{ article.featured_image }}">
-{% elif article.featured_image is not defined and article.cover is defined %}
-<meta property="og:image" content="{{ article.cover }}">
-{% elif article.featured_image is not defined and article.cover is not defined and SITELOGO %}
-<meta property="og:image" content="{{ SITELOGO }}">
-{% else %}
-{% endif %}

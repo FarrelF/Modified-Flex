@@ -12,3 +12,12 @@
 {% if SITELOGO %}
 <meta property="og:image" content="{{ SITELOGO }}">
 {% endif %}
+{% if SITELOGO_HEIGHT %}
+<meta property="og:image:height" content="{{ SITELOGO_HEIGHT }}">
+{% endif %}
+{% if SITELOGO_WIDTH %}
+<meta property="og:image:width" content="{{ SITELOGO_WIDTH }}">
+{% endif %}
+{% if FB_APP_ID %}
+<meta property="fb:app_id" content="{{ FB_APP_ID }}">
+{% endif %}
