@@ -1,7 +1,5 @@
 # Farrel Franqois - Modified Flex
 
-#### Catatan: Repo ini tidak akan saya gunakan lagi dan saya arsipkan, tapi sebagai ganti nya, saya membuat _Repository_ Baru untuk tema ini. Jika Anda ingin melihat kode sumber tema ini, silahkan kunjungi [Repo Baru nya](https://github.com/FarrelF/Modified-Flex). Terima Kasih :blush:
-
 Ini merupakan versi modifikasi dari salah satu Tema [Pelican](http://blog.getpelican.com/) yang minimalis, yakni [Flex](https://github.com/alexandrevicenzi/Flex/). Tema ini hanya saya gunakan untuk [Blog saya saja](https://farrel.franqois.id), jadi saya tidak bisa menjamin bahwa tema ini akan cocok untuk penggunaan Anda.
 
 ## Install
