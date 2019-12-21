@@ -51,9 +51,9 @@
   <div>
     {% if summarise or article.metadata['summary'] or SUMMARY_MAX_LENGTH %}
       {% if article.featured_image %}
-      <img data-src="{{ article.featured_image }}" loading="lazy" {% if article.featured_image_width %}width="{{ article.featured_image_width }}"{% endif %} {% if article.featured_image_height %}height="{{ article.featured_image_height }}"{% endif %} style="display: block; margin: 0 auto;" id="{{ article.slug }}">
+      <img data-src="{{ article.featured_image }}" loading="lazy" style="display: block; margin: 0 auto;" id="{{ article.slug }}">
       {% elif article.cover %}
-      <img data-src="{{ article.cover }}" loading="lazy" {% if article.cover_width %}width="{{ article.cover_width }}"{% endif %} {% if article.cover_height %}height="{{ article.cover_height }}"{% endif %} style="display: block; margin: 0 auto;" id="{{ article.slug }}" alt="">
+      <img data-src="{{ article.cover }}" loading="lazy" style="display: block; margin: 0 auto;" id="{{ article.slug }}" alt="">
       {% endif %}
       {{ article.summary }}
       {% if article.content != article.summary %}
