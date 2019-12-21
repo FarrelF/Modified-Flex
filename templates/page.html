@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% if page.status != 'published' %}
+  {% set GOOGLE_ADSENSE = '' %}
+  {% set DISQUS_SITENAME = '' %}
+  {% set DISQUS_IN_PAGES = False %}
+{% endif %}
+
+{% block meta %}
+  <meta name="author" content="{{ AUTHOR }}" />
+  <meta name="description" content="{{ SITEDESCRIPTION }}" />
+  {% include "partial/og.html" %}
+  {{ super() }}
+  {% if page.translations -%}
+  <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="{{ page.lang }}" />
+  {% for p in page.translations %}
+  <link rel="alternate" href="{{ SITEURL }}/{{ p.url }}" hreflang="{{ p.lang }}" />
+  {% endfor %}
+  {% endif %}
+  {% block canonical_rel %}
+  {% if page.canonical_url %}
+    <link rel="canonical" href="{{ page.canonical_url }}">
+  {% else %}
+    <link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">
+  {% endif %}
+  {% endblock %}
+  {% for key, value in GOOGLE_RECAPTCHA.forms_id.items() %}
+    {% if page.slug == key %}
+      {% include "partial/recaptcha.html" %}
+    {% else %}
+      {% set GOOGLE_RECAPTCHA = '' %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+{% block title %}{{ page.title }} &#x007c; {% endblock %}
+
+{% block content %}
+<article class="single">
+  <header>
+    {% import 'partial/translations.html' as translations with context %}
+    {{ translations.translations_for(page) }}
+    <h1 id="{{ page.slug }}">{{ page.title }}</h1>
+  </header>
+  <div>
+    {% block before_content %}{% endblock %}
+    {% block page_content %}
+    {% if page.slug == 'search' %}
+      {% include "partial/cse.html" %}
+    {% else %}
+      {{ page.content }}
+    {% endif %}
+    {% endblock %}
+    {% block after_content %}
+    {% if DISQUS_SITENAME %}
+      {% if DISQUS_IN_PAGES %}
+        {% include "partial/disqus.html" %}
+      {% endif %}
+    {% endif %}
+    {% endblock %}
+  </div>
+</article>
+{% endblock %}

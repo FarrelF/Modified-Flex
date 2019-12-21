@@ -1,0 +1,187 @@
+// Flex colors
+@orange: #D9411E;
+@light-orange: #FF5A09;
+@white:  #ffffff;
+@black: #000000;
+@dark-grey: #676767;
+@darker-grey: #666666;
+@grey: #333333;
+@light-grey:  #eeeeee;
+@med-grey:  #999999;
+@dark-grey: #242121;
+@dark-blue: #1155CC;
+@green: #009933;
+
+//Flex Dark Mode
+@light-blue: #26BEE1;
+@blue: #00A5F6;
+@grey-darkmode: #CCCCCC;
+@light-grey-darkmode: #DBDEDE;
+@light-grey-branding: #d9d9d9;
+@dark: #161625;
+@light-green: #77ff33;
+
+// Font family
+@sans: 'Source Sans Pro', 'Roboto', 'Open Sans', 'Liberation Sans', 'DejaVu Sans', 'Verdana', 'Helvetica', 'Arial', sans-serif;
+@mono: 'Source Code Pro', 'Consolas', 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+
+.theme-light {
+    // Body
+    --body-bg: @white;
+    --text-color: @dark-grey;
+
+    // Link
+    --link-color: @orange;
+    --link-hover-color: @light-orange;
+
+    // Sidebar
+    --sidebar-bg: @grey;
+    --sidebar-text-color: @white;
+    --sidebar-link-color: @white;
+    --sidebar-link-hover-color: @light-grey;
+
+    // Buttons
+    --btn-bg: @orange;
+    --btn-text-color: @white;
+    --btn-hover-color: @light-orange;
+
+    // Tag Cloud
+    --tag-bg: @orange;
+    --tag-text-color: @white;
+
+    // Headers
+    --header: @med-grey;
+
+    // Footer
+    --footer: @med-grey;
+    --footer-border: @light-grey;
+
+    // Relativer posts
+    --rel-post-border-color: @light-grey;
+
+    // Nav
+    --nav-border-color: @light-grey;
+
+    // Google CSE
+    --google-cse-title-color: @dark-blue;
+    --google-cse-url-color: @green;
+    --google-cse-snippet-color: @grey;
+    --google-cse-result-info-color: @dark-grey;
+    --google-cse-branding-text-color: @darker-grey;
+}
+  
+.theme-dark {
+    // Body
+    --body-bg: @dark;
+    --text-color: @light-grey-darkmode;
+
+    // Links
+    --link-color: @blue;
+    --link-hover-color: @light-blue;
+
+    // Sidebar (aside)
+    --sidebar-bg: @grey;
+    --sidebar-text-color: @white;
+    --sidebar-link-color: @white;
+    --sidebar-link-hover-color: @light-grey;
+
+    // Buttons
+    --btn-bg: @blue;
+    --btn-text-color: @white;
+    --btn-hover-color: @light-blue;
+
+    // Tag cloud
+    --tag-bg: @blue;
+    --tag-text-color: @white;
+    --tag-hover-color: @light-blue;
+
+    // Header
+    --header-text-color: @light-grey-darkmode;
+
+    // Footer
+    --footer-text-color: @light-grey-darkmode;
+    --footer-border-color: @light-grey;
+
+    // Relativer posts
+    --rel-post-border-color: @light-grey;
+
+    // Nav
+    --nav-border-color: @light-grey;
+
+    // Google CSE
+    --google-cse-title-color: @blue;
+    --google-cse-title-hover-color: @light-blue;
+    --google-cse-url-color: @light-green;
+    --google-cse-snippet-color: @grey;
+    --google-cse-result-info-color: @light-grey-darkmode;
+    --google-cse-branding-text-color: @light-grey-branding;
+}
+
+// Body
+@body-bg: var(--body-bg);
+@text-color: var(--text-color);
+
+// Links
+@link-color: var(--link-color);
+@link-hover-color: var(--link-hover-color);
+
+// Sidebar (aside)
+@sidebar-bg: var(--sidebar-bg);
+@sidebar-text-color: var(--sidebar-text-color);
+@sidebar-link-color: var(--sidebar-link-color);
+@sidebar-link-hover-color: var(--sidebar-link-hover-color);
+
+// Buttons
+@btn-bg: var(--btn-bg);
+@btn-text-color: var(--btn-text-color);
+@btn-hover-color: var(--btn-hover-color);
+
+// Tag cloud
+@tag-bg: var(--tag-bg);
+@tag-text-color: var(--tag-text-color);
+@tag-hover-color: var(--tag-hover-color);
+
+// Header
+@header-text-color: var(--header-text-color);
+
+// Footer
+@footer-text-color: var(--footer-text-color);
+@footer-border-color: var(--footer-border-color);
+
+// Relativer posts
+@rel-post-border-color: var(--rel-post-border-color);
+
+// Nav
+@nav-border-color: var(--nav-border-color);
+
+// Social buttons
+
+@email-bg-color: #578ad6;
+@facebook-bg-color: #3e5b98;
+@github-bg-color: #111010;
+@google-bg-color: #d93e2d;
+@instagram-bg-color: #125688;
+@keybase-bg-color: #4c8dff;
+@linkedin-bg-color: #3371b7;
+@medium-bg-color: #00ab6b;
+@pinterest-bg-color: #c92619;
+@reddit-bg-color: #ff4500;
+@rss-bg-color: #f26109;
+@soundcloud-bg-color: #ff5500;
+@stack-overflow-bg-color: #ff9900;
+@tumblr-bg-color: #36465d;
+@twitter-bg-color: #4da7de;
+@youtube-bg-color: #e02a20;
+@gitlab-bg-color: #fca326;
+@xing-bg-color: #007575;
+@bitbucket-bg-color: #0747A6;
+@mastodon-bg-color: #3088d4;
+@flickr-bg-color: #ff0084;
+
+// Google CSE
+@google-cse-title-color: var(--google-cse-title-color);
+@google-cse-title-hover-color: var(--google-cse-title-hover-color);
+@google-cse-url-color: var(--google-cse-url-color);
+@google-cse-snippet-color: var(--google-cse-snippet-color);
+@google-cse-result-info-color: var(--google-cse-result-info-color);
+@google-cse-branding-text-color: var(--google-cse-branding-text-color);
