@@ -320,9 +320,11 @@
     {% include "partial/guages.html" %}
   {% endif %}
 
-  {% if ADD_THIS_ID %}
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{ ADD_THIS_ID }}" async="async"></script>
+  {% block addthis %}
+  {% if ADD_THIS is defined and ADD_THIS.activate == True and ADD_THIS.id and ADD_THIS.options.scripts_position.EntireWeb == True %}
+    <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid={{ ADD_THIS.id }}" async="async"></script>
   {% endif %}
+  {% endblock %}
 
   {% if (PIWIK_URL and PIWIK_SITE_ID) or (MATOMO_URL and MATOMO_SITE_ID) %}
     {% include "partial/matomo.html" %}

@@ -46,6 +46,12 @@
 
 {% block title %}{{ article.title|striptags|escape }} &#x007c; {% endblock %}
 
+{% block addthis %}
+{% if ADD_THIS is defined and ADD_THIS.activate == True and ADD_THIS.id and ADD_THIS.options.scripts_position.EntireWeb == False %}
+<script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid={{ ADD_THIS.id }}" async="async"></script>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <article class="single">
   <header>
@@ -116,12 +122,18 @@
     </p>
   </div>
 
-  {% if ADD_THIS_ID %}
+  {% if ADD_THIS is defined and ADD_THIS.activate == True %}
   <div class="center social-share">
     <p>{{ _('Apakah kamu menyukai artikel ini? Kalau iya, bagikan artikel ini ke teman-teman kamu!') }}</p>
-    <div class="addthis_native_toolbox"></div>
-    <div class="addthis_sharing_toolbox"></div>
-    <div class="addthis_inline_share_toolbox"></div>
+    {% if ADD_THIS.options.native_toolbox and ADD_THIS.options.native_toolbox.id %}
+    <div class="addthis_native_toolbox_{{ ADD_THIS.options.native_toolbox.id }}"></div>
+    {% endif %}
+    {% if ADD_THIS.options.sharing_toolbox and ADD_THIS.options.sharing_toolbox.id %}
+    <div class="addthis_sharing_toolbox_{{ ADD_THIS.options.sharing_toolbox.id }}"></div>
+    {% endif %}
+    {% if ADD_THIS.options.inline_share_toolbox and ADD_THIS.options.inline_share_toolbox.id %}
+    <div class="addthis_inline_share_toolbox_{{ ADD_THIS.options.inline_share_toolbox.id }}"></div>
+    {% endif %}
   </div>
   {% endif %}
 
@@ -136,8 +148,10 @@
     {% endfor %}
     </ul>
   </div>
-  {% elif ADD_THIS_ID %}
-    <div class="addthis_relatedposts_inline"></div>
+  {% elif ADD_THIS is defined and ADD_THIS.id and ADD_THIS.activate == True %}
+    {% if ADD_THIS.options.relatedposts_inline and ADD_THIS.options.relatedposts_inline.id %}
+    <div class="addthis_relatedposts_inline_{{ ADD_THIS.options.relatedposts_inline.id }}"></div>
+    {% endif %}
   {% endif %}
 
   {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.article_bottom %}
