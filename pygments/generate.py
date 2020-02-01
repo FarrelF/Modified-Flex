@@ -4,6 +4,7 @@ import os
 
 from pygments.styles import get_all_styles
 from pygments.formatters.html import HtmlFormatter
+from dracula import DraculaStyle
 
 PYGMENTS_PATH = './../static/pygments'
 

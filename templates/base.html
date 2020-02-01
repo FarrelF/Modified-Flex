@@ -313,6 +313,9 @@
       {% else %}
         {% include "partial/copyright.html" %}
       {% endif %}
+      {% if SHOW_LAST_COMMIT == True %}
+        {% include "partial/last_commit.html" %}
+      {% endif %}
     </footer>
   </main>
 

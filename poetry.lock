@@ -1,0 +1,59 @@
+[[package]]
+category = "dev"
+description = "Pygments is a syntax highlighting package written in Python."
+name = "pygments"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "2.5.2"
+
+[[package]]
+category = "dev"
+description = "Pygments plugin version of the dracula theme to use with pygmentize."
+name = "pygments-dracula"
+optional = false
+python-versions = "*"
+version = "0.1"
+
+[package.dependencies]
+pygments = ">=1.4"
+
+[[package]]
+category = "dev"
+description = "Pygments version of the github theme."
+name = "pygments-style-github"
+optional = false
+python-versions = "*"
+version = "0.4"
+
+[package.dependencies]
+pygments = ">=1.4"
+
+[[package]]
+category = "dev"
+description = "Syntax highlighting for Pygments based on the Zenburn theme"
+name = "pygments-zenburn"
+optional = false
+python-versions = "*"
+version = "0.9.0"
+
+[metadata]
+content-hash = "ccf0eb304ad6738faa2cecaf6b59d3d76e1ae88b5dca23b828ec50e5ba09daf0"
+python-versions = "^3.7"
+
+[metadata.files]
+pygments = [
+    {file = "Pygments-2.5.2-py2.py3-none-any.whl", hash = "sha256:2a3fe295e54a20164a9df49c75fa58526d3be48e14aceba6d6b1e8ac0bfd6f1b"},
+    {file = "Pygments-2.5.2.tar.gz", hash = "sha256:98c8aa5a9f778fcd1026a17361ddaf7330d1b7c62ae97c3bb0ae73e0b9b6b0fe"},
+]
+pygments-dracula = [
+    {file = "pygments-dracula-0.1.tar.gz", hash = "sha256:9cfcfc62a2845cef43d92cef3be55ba90bd6d9ee7c6fe20d88d72f5593982eda"},
+    {file = "pygments_dracula-0.1-py2.7.egg", hash = "sha256:6ff6f2c5e9437271226db0aede469e7c800beca2d36e629fda0440d8693c3b88"},
+    {file = "pygments_dracula-0.1-py3-none-any.whl", hash = "sha256:b6733f33be0ee132e67b8de2edb8ca09f14f0af51b905c495a9bd67f0c03ad5e"},
+]
+pygments-style-github = [
+    {file = "pygments-style-github-0.4.tar.gz", hash = "sha256:0fcabd23147d54c86240f621678c53c998a7defaa0d276911c1f2def0a45f4a7"},
+]
+pygments-zenburn = [
+    {file = "pygments_zenburn-0.9.0-py27-none-any.whl", hash = "sha256:86841944a2ce0d97e230f676730d369e26794f5dba430122613be953cc939abf"},
+    {file = "pygments_zenburn-0.9.0.tar.gz", hash = "sha256:99c1078ef1e32899f5cbe093d81288cae0152ea64b9fc836d1c67277b2694b44"},
+]
