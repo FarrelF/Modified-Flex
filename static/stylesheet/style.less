@@ -336,7 +336,7 @@ div.related-posts {
   }
 }
 
-ul.list, ul.social, ul.related-posts {
+ul.list, ul.social, ul.related-posts, ul.searchbox {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -350,7 +350,7 @@ ul.list {
   }
 }
 
-ul.social {
+ul.social, ul.searchbox {
   font-size: 1.6em;
   padding-top: 20px;
 
@@ -502,6 +502,10 @@ ul.social {
       ul.social {
         padding-top: 32px;
       }
+
+      ul.searchbox {
+        padding-top: 16px;
+      }
     }
   }
 
@@ -577,7 +581,8 @@ ul.social {
   -webkit-transition: 0.4s;
   transition: 0.4s;
   box-shadow: 0 0px 15px #2020203d;
-  background: white url('https://cdn.statically.io/gh/twitter/twemoji/v12.1.3/assets/72x72/2600.png?fit=32,32');
+  background: white url('https://cdn.statically.io/gh/twitter/twemoji/v12.1.5/assets/svg/2600.svg');
+  background-size: 32px;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -594,7 +599,8 @@ input:checked + .slider:before {
   -webkit-transform: translateX(24px);
   -ms-transform: translateX(24px);
   transform: translateX(24px);
-  background: white url('https://cdn.statically.io/gh/twitter/twemoji/v12.1.3/assets/72x72/1f319.png?fit=32,32');
+  background: white url('https://cdn.statically.io/gh/twitter/twemoji/v12.1.5/assets/svg/1f319.svg');
+  background-size: 32px;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -672,4 +678,67 @@ div.gs-bidi-start-align.gs-snippet {
 }
 .gsc-branding-text, .gcsc-branding-text {
   color: @google-cse-branding-text-color !important;
+}
+
+details {
+  display: block;
+}
+
+details[open] > summary::before {
+  content: "\25BC";
+}
+
+details summary {
+  display: block;
+  cursor: pointer;
+}
+
+details summary:focus {
+  outline: none;
+}
+
+details summary::before {
+  content: "\25B6";
+  padding-right: 0.5em;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Attach the "no-details" class to details tags
+   in browsers that do not support them to get
+   open/show functionality. */
+details.no-details:not([open]) > * {
+  display: none;
+}
+
+details.no-details:not([open]) summary {
+  display: block;
+}
+
+main article details.info {
+  border: 1px solid;
+  padding: 1em;
+}
+
+.search-input {
+  width: 75%;
+  margin: 0;
+  line-height: normal !important;
+  padding: 0.4em;
+  border-radius: 5px;
+}
+
+.btn-search {
+  display: inline-block;
+  margin: 0;
+  padding: 5px;
+  line-height: normal !important;
+}
+
+.btn-search::-moz-focus-inner,
+.search-input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
 }
