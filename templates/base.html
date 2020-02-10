@@ -33,6 +33,14 @@
     {% endfor %}
   {% endif %}
 
+  {% if COPYRIGHTED_SITE_VERIFICATION is defined and COPYRIGHTED_SITE_VERIFICATION is string %}
+    <meta name="copyrighted-site-verification" content="{{ COPYRIGHTED_SITE_VERIFICATION }}" />
+  {% elif COPYRIGHTED_SITE_VERIFICATION is defined and COPYRIGHTED_SITE_VERIFICATION is iterable %}
+    {% for tag_codes in COPYRIGHTED_SITE_VERIFICATION %}
+      <meta name="copyrighted-site-verification" content="{{ tag_codes }}" />
+    {% endfor %}
+  {% endif %}
+
   {% if USE_GOOGLE_FONTS != False %}
     {% if USE_GOOGLE_CDN_FOR_FONTS %}
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
