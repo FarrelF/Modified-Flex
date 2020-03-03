@@ -167,7 +167,7 @@
     <div>
       <a href="{{ SITEURL }}">
         {% if SITELOGO %}
-        <img src="{{ SITELOGO }}{% if SITELOGO_HEIGHT and SITELOGO_WIDTH %}?w={{ SITELOGO_WIDTH }}&h={{ SITELOGO_HEIGHT }}{% endif %}" {% if SITELOGO_HEIGHT %} height="{{ SITELOGO_HEIGHT }}"{% endif %} {% if SITELOGO_WIDTH %}width="{{ SITELOGO_WIDTH }}"{% endif %} alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
+        <img src="{{ SITELOGO }}" {% if SITELOGO_HEIGHT %} height="{{ SITELOGO_HEIGHT }}"{% endif %} {% if SITELOGO_WIDTH %}width="{{ SITELOGO_WIDTH }}"{% endif %} alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
         {% elif AVATAR_URL %}
         <img src="{{ AVATAR_URL }}" alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
         {% else %}
