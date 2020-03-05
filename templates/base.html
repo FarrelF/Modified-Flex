@@ -166,10 +166,10 @@
   <aside>
     <div>
       <a href="{{ SITEURL }}">
-        {% if SITELOGO %}
-        <img src="{{ SITELOGO }}" {% if SITELOGO_HEIGHT %} height="{{ SITELOGO_HEIGHT }}"{% endif %} {% if SITELOGO_WIDTH %}width="{{ SITELOGO_WIDTH }}"{% endif %} alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
-        {% elif AVATAR_URL %}
-        <img src="{{ AVATAR_URL }}" alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
+        {% if SITELOGO and AVATAR_URL is not defined %}
+        <img src="{{ SITELOGO }}"{% if SITELOGO_HEIGHT %} height="{{ SITELOGO_HEIGHT }}"{% endif %}{% if SITELOGO_WIDTH %} width="{{ SITELOGO_WIDTH }}"{% endif %} alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
+        {% elif AVATAR_URL is defined %}
+        <img src="{{ AVATAR_URL }}"{% if AVATAR_HEIGHT %} height="{{ AVATAR_HEIGHT }}"{% endif %}{% if AVATAR_WIDTH %} width="{{ AVATAR_WIDTH }}"{% endif %} alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
         {% else %}
           {% if USE_CDN == True %}
           <img src="{{ CDN_STATIC_THEME_URL }}/img/profile.png" alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
