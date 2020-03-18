@@ -16,6 +16,8 @@
            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/cc/{{ CC_LICENSE['slug'] }}.png"
          {% elif CC_LICENSE['distribution-type'] == 'cdn' %}
            src="{{ CDN_STATIC_THEME_URL }}/img/cc/{{ CC_LICENSE['slug'] }}.png"
+         {% elif CC_LICENSE['distribution-type'] == 'custom' %}
+           src="{{ CC_LICENSE['custom-url'] }}/{{ CC_LICENSE['slug'] }}.png"
          {% else %}
            src="https://i.creativecommons.org/l/{{ CC_LICENSE['slug'] }}/{{ CC_LICENSE['version'] }}/80x15.png"
          {% endif %}

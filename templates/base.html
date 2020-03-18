@@ -80,6 +80,14 @@
     {% endif %}
   {% endif %}
 
+  {% if LUMINOUS.activate == True %}
+    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+  {% endif %}
+
+  {% if DRIFT.activate == True %}
+    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+  {% endif %}
+
   {% if USE_BOOTSTRAP %}
     <script src="https://cdn.statically.io/libs/jquery/3.4.1/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.statically.io/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -286,11 +294,11 @@
   {% endif %}
   {% if DARK_MODE == True %}
   <div id="div-darkmode">
-    <div id="div-darkmode-text">Mode Gelap: &nbsp;</div>
-      <label id="switch" class="switch">
-        <input type="checkbox" onchange="toggleTheme()" id="slider">
-        <span class="slider round"></span>
-      </label>
+    <div id="div-darkmode-text">&nbsp;</div>
+    <label id="switch" class="switch">
+      <input type="checkbox" onchange="toggleTheme()" id="slider">
+      <span class="slider round"></span>
+    </label>
   </div> 
   {% endif %}
   {% if MAIN_MENU %}
@@ -390,6 +398,40 @@
       <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/lazyload.min.js"></script>
       {% else %}
       <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/lazyload.js"></script>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if DRIFT.activate == True %}
+    <script src="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/Drift.min.js"{% if DRIFT.script.integrity_hash %} integrity="{{ DRIFT.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% if USE_CDN != True %}
+      {% if USE_MINIFIED_SCRIPTS == True %}
+      <script type="application/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/scripts/drift_settings.min.js"></script>
+      {% else %}
+      <script type="application/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/scripts/drift_settings.js"></script>
+      {% endif %}
+    {% else %}
+      {% if USE_MINIFIED_SCRIPTS == True %}
+      <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/drift_settings.min.js"></script>
+      {% else %}
+      <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/drift_settings.js"></script>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if LUMINOUS.activate == True %}
+  <script src="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/Luminous.min.js"{% if LUMINOUS.script.integrity_hash %} integrity="{{ LUMINOUS.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% if USE_CDN != True %}
+      {% if USE_MINIFIED_SCRIPTS == True %}
+      <script type="application/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/scripts/luminous_settings.min.js"></script>
+      {% else %}
+      <script type="application/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/scripts/luminous_settings.js"></script>
+      {% endif %}
+    {% else %}
+      {% if USE_MINIFIED_SCRIPTS == True %}
+      <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/luminous_settings.min.js"></script>
+      {% else %}
+      <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/luminous_settings.js"></script>
       {% endif %}
     {% endif %}
   {% endif %}
