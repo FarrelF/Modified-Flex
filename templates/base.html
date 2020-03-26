@@ -65,13 +65,13 @@
     {% endif %}
   {% endif %}
 
-  {% if USE_LESS %}
+  {% if LESS.use_less == True %}
     {% if USE_CDN == True %}
     <link rel="stylesheet/less" type="text/css" href="{{ CDN_STATIC_THEME_URL }}/stylesheet/style.less">
     {% elif USE_CDN == False %}
     <link rel="stylesheet/less" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/stylesheet/style.less">
     {% endif %}
-    <script src="//cdn.statically.io/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
+    <script src="https://cdn.statically.io/gh/less/less.js/{{ LESS.version }}/dist/less.min.js"{% if LESS.integrity_hash %} integrity="{{ LESS.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
   {% else %}
     {% if USE_CDN == True %}
     <link rel="stylesheet" type="text/css" href="{{ CDN_STATIC_THEME_URL }}/stylesheet/style.min.css">
