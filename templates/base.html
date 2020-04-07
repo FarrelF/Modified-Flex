@@ -342,6 +342,9 @@
       {% if CC_LICENSE %}
         {% include "partial/cc_license.html" %}
       {% else %}
+        {% if REPO_INFO['is_source_available'] == True %}
+          {% include "partial/source_code.html" %}
+        {% endif %}
         {% include "partial/copyright.html" %}
       {% endif %}
       {% if SHOW_LAST_COMMIT == True %}
