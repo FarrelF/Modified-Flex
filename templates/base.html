@@ -94,12 +94,16 @@
     <link rel="stylesheet" href="https://cdn.statically.io/gh/twbs/bootstrap/v4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   {% endif %}
   {% if USE_CDN %}
+    {% if USE_PYGMENTS == True %}
     <link rel="stylesheet" type="text/css" href="{{ CDN_STATIC_THEME_URL }}/pygments/{{ PYGMENTS_STYLE|default('github') }}.min.css">
+    {% endif %}
     <link rel="stylesheet" type="text/css" href="{{ CDN_STATIC_THEME_URL }}/font-awesome/css/fontawesome.css">
     <link rel="stylesheet" type="text/css" href="{{ CDN_STATIC_THEME_URL }}/font-awesome/css/brands.css">
     <link rel="stylesheet" type="text/css" href="{{ CDN_STATIC_THEME_URL }}/font-awesome/css/solid.css">
   {% else %}
+    {% if USE_PYGMENTS == True %}
     <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pygments/{{ PYGMENTS_STYLE|default('github') }}.min.css">
+    {% endif %}
     <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/font-awesome/css/fontawesome.css">
     <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/font-awesome/css/brands.css">
     <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/font-awesome/css/solid.css">
@@ -116,6 +120,23 @@
     <script type="application/javascript" src="{{ SITEURL }}/{{ CUSTOM_JS }}"></script>
     {% else %}
     <script type="application/javascript" src="{{ CDN_STATIC_BLOG_URL }}/{{ CUSTOM_JS }}"></script>
+    {% endif %}
+  {% endif %}
+  {% if HIGHLIGHTJS and HIGHLIGHTJS.use_highlightjs == True and HIGHLIGHTJS.version %}
+    <script type="application/javascript" src="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/highlight.min.js"{% if HIGHLIGHTJS.integrity_hash %} integrity="{{ HIGHLIGHTJS.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% if HIGHLIGHTJS.linenums == True and HIGHLIGHTJS.linenums_config.version %}
+    <script type="application/javascript" src="{% if HIGHLIGHTJS.linenums_config.custom_url %}{{ HIGHLIGHTJS.linenums_config.custom_url }}{% else %}https://cdn.statically.io/gh/wcoder/highlightjs-line-numbers.js/{{ HIGHLIGHTJS.linenums_config.version }}{% endif %}/dist/highlightjs-line-numbers.min.js"{% if HIGHLIGHTJS.linenums_config.integrity_hash %} integrity="{{ HIGHLIGHTJS.linenums_config.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/styles/{{ HIGHLIGHTJS.styles.dark_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.dark_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.dark_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% if HIGHLIGHTJS.styles.dark_mode.name %}
+    <link rel="alternate stylesheet" type="text/css" href="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/styles/{{ HIGHLIGHTJS.styles.dark_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.dark_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.dark_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% endif %}
+    {% if HIGHLIGHTJS.styles.light_mode.name %}
+    <link rel="alternate stylesheet" type="text/css" href="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/styles/{{ HIGHLIGHTJS.styles.light_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.light_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.light_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% endif %}
+    <script>hljs.initHighlightingOnLoad();</script>
+    {% if HIGHLIGHTJS.linenums == True and HIGHLIGHTJS.linenums_config.version %}
+    <script>hljs.initLineNumbersOnLoad();</script>
     {% endif %}
   {% endif %}
   {% if FEED_ALL_ATOM %}
@@ -424,19 +445,7 @@
 
   {% if LUMINOUS.activate == True %}
   <script src="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/Luminous.min.js"{% if LUMINOUS.script.integrity_hash %} integrity="{{ LUMINOUS.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
-    {% if USE_CDN != True %}
-      {% if USE_MINIFIED_SCRIPTS == True %}
-      <script type="application/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/scripts/luminous_settings.min.js"></script>
-      {% else %}
-      <script type="application/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/scripts/luminous_settings.js"></script>
-      {% endif %}
-    {% else %}
-      {% if USE_MINIFIED_SCRIPTS == True %}
-      <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/luminous_settings.min.js"></script>
-      {% else %}
-      <script type="application/javascript" src="{{ CDN_STATIC_THEME_URL }}/scripts/luminous_settings.js"></script>
-      {% endif %}
-    {% endif %}
+  <script type="application/javascript">new LuminousGallery(document.querySelectorAll("{% if LUMINOUS.content_selector %}{{ LUMINOUS.content_selector }}{% else %}luminous-image-gallery{% endif %}"),{arrowNavigation:!0}{% if LUMINOUS.caption == True %},{caption:function(e){return e.querySelector("img").getAttribute("alt")}}{% endif %});</script>
   {% endif %}
   {% if DISQUS_LAZYLOAD == True %}
     {% if USE_CDN != True %}

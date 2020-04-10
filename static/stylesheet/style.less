@@ -189,9 +189,12 @@ main {
     }
 
     pre {
-      padding: 4px;
+      //padding: 4px;
       font-size: .9em;
       overflow-x: auto;
+      code.hljs {
+        display: block !important;
+      }
     }
 
     samp {
@@ -217,10 +220,14 @@ main {
       font-size: .8em;
       white-space: nowrap;
       color: #c25;
-      padding: 1px 3px;
+      padding: 1px 3px !important;
       background-color: #f7f7f9;
       border: 1px solid #e1e1e8;
       border-radius: 3px;
+    }
+
+    *:not(pre) > code.hljs {
+      display: inline !important;
     }
 
     .comment-count {
