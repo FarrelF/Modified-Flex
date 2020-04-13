@@ -324,7 +324,7 @@
   <nav>
     <a href="{{ SITEURL }}">{{ _('Beranda') }}</a>
     {% for title, link in MENUITEMS %}
-    <a href="{{ link }}">{{ title }}</a>
+    <a href="{{ link }}" title="{{ title }}">{{ title }}</a>
     {% endfor %}
     {% if FEED_ALL_ATOM %}
     <a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}">{{ _('Atom') }}</a>
