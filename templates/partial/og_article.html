@@ -47,3 +47,23 @@
 {% for tag in article.tags %}
 <meta property="article:tag" content="{{ tag.name|escape }}"/>
 {% endfor %}
+{% if TWITTER.using_twitter_meta == True %}
+<meta name="twitter:card" content="{% if article.twitter_card_type %}{{ article.twitter_card_type }}{% else %}summary{% endif %}">
+<meta name="twitter:title" content="{{ article.title|striptags|escape }}">
+{% if article.description %}
+<meta name="twitter:description" content="{{ article.description|striptags|escape }}"/>
+{% else %}
+<meta name="twitter:description" content="{{ article.summary|striptags|escape }}"/>
+{% endif %}
+{% if article.featured_image is defined %}
+<meta name="twitter:image" content="{{ article.featured_image }}">
+{% elif article.featured_image is not defined and article.cover is defined %}
+<meta name="twitter:image" content="{{ article.cover }}">
+{% elif article.featured_image is not defined and article.cover is not defined and SITELOGO %}
+<meta name="twitter:image" content="{{ SITELOGO }}">
+{% else %}
+{% endif %}
+{% if article.twitter_username %}
+<meta name="twitter:creator" content="{{ article.twitter_username }}">
+{% endif %}
+{% endif %}

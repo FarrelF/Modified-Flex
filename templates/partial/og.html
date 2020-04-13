@@ -21,3 +21,10 @@
 {% if FB_APP_ID %}
 <meta property="fb:app_id" content="{{ FB_APP_ID }}">
 {% endif %}
+{% if TWITTER.using_twitter_meta == True %}
+<meta name="twitter:card" content="{% if TWITTER.default_card_type %}{{ TWITTER.default_card_type }}{% else %}summary{% endif %}">
+<meta name="twitter:title" content="{{ SITENAME }}">
+<meta name="twitter:description" content="{{ SITEDESCRIPTION }}">
+<meta name="twitter:image" content="{{ SITELOGO }}">
+<meta name="twitter:creator" content="{{ TWITTER.creator_username }}">
+{% endif %}

@@ -244,17 +244,24 @@
             {%- endif -%}
           {%- endmacro %}
           {% for page in pages %}
-          <li><a href="{{ SITEURL }}/{{ page.url }}{% if not DISABLE_URL_HASH %}#{{ page.slug }}{% endif %}" target="{{ get_target(SITEURL) }}">{{ page.title }}</a></li>
+          <li><a href="{{ SITEURL }}/{{ page.url }}{% if not DISABLE_URL_HASH %}#{{ page.slug }}{% endif %}" title="{{ page.title }}" target="{{ get_target(SITEURL) }}">{{ page.title }}</a></li>
           {% endfor %}
           {% endif %}
 
           {% for name, link in LINKS %}
-          <li><a href="{{ link }}" target="{{ get_target(link) }}">{{ name }}</a></li>
+          <li><a href="{{ link }}" title="{{ name }}" target="{{ get_target(link) }}">{{ name }}</a></li>
           {% endfor %}
         </ul>
       </nav>
       {% endif %}
-
+      {% if DARK_MODE == True %}
+      <ul class="darkmode">
+        <label id="switch" class="switch">
+          <input type="checkbox" onchange="toggleTheme()" id="slider">
+          <span class="slider round"></span>
+        </label>
+      </ul> 
+      {% endif %}
       <ul class="social">
         {% for name, link in SOCIAL %}
           <li>
@@ -312,15 +319,6 @@
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-  {% endif %}
-  {% if DARK_MODE == True %}
-  <div id="div-darkmode">
-    <div id="div-darkmode-text">&nbsp;</div>
-    <label id="switch" class="switch">
-      <input type="checkbox" onchange="toggleTheme()" id="slider">
-      <span class="slider round"></span>
-    </label>
-  </div> 
   {% endif %}
   {% if MAIN_MENU %}
   <nav>
