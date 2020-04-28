@@ -1,9 +1,9 @@
 {% if REPO_INFO['is_open_source'] == True %}
 <p>
-  Kode Sumber untuk blog ini telah tersedia <a href="{{ REPO_INFO['source_code']['repo_url'] }}">disini</a>, dan di lisensi kan di bawah Lisensi "<a href="{{ REPO_INFO['license']['url'] }}">{{ REPO_INFO['license']['name'] }} ({{ REPO_INFO['license']['short_name'] }})</a>". Selengkap nya, lihat/baca laman <a href="{{ REPO_INFO['license']['page_url'] }}">{{ REPO_INFO['license']['page_name'] }}</a> dan <a href="{{ REPO_INFO['source_code']['page_url'] }}">{{ REPO_INFO['source_code']['page_name'] }}</a>.
+  Kode Sumber untuk blog ini telah tersedia <a href="{{ REPO_INFO['source_code']['repo_url'] }}">disini</a>, dan di lisensi kan di bawah Lisensi "<a href="{{ REPO_INFO['license']['url'] }}">{{ REPO_INFO['license']['name'] }} ({{ REPO_INFO['license']['short_name'] }})</a>". {% if REPO_INFO['license']['page_url'] or REPO_INFO['source_code']['page_url'] %}Selengkap nya, lihat/baca laman {% if REPO_INFO['license']['page_name'] and REPO_INFO['license']['page_url'] %}<a href="{{ REPO_INFO['license']['page_url'] }}">{{ REPO_INFO['license']['page_name'] }}</a>{% endif %} {% if REPO_INFO['license']['page_url'] and REPO_INFO['source_code']['page_url'] %}dan{% endif %}{% if REPO_INFO['source_code']['page_url'] %}<a href="{{ REPO_INFO['source_code']['page_url'] }}">{{ REPO_INFO['source_code']['page_name'] }}</a>{% endif %}.{% endif %}
 </p>
 {% elif REPO_INFO['is_open_source'] == False %}
 <p>
-  Kode Sumber untuk blog ini telah tersedia <a href="{{ REPO_INFO['source_code']['repo_url'] }}">disini</a>. Selengkap nya, lihat/baca laman <a href="{{ REPO_INFO['source_code']['page_url'] }}">{{ REPO_INFO['source_code']['page_name'] }}</a>.
+  Kode Sumber untuk blog ini telah tersedia <a href="{{ REPO_INFO['source_code']['repo_url'] }}">disini</a>. {% if REPO_INFO['source_code']['page_url'] %}Selengkap nya, lihat/baca laman <a href="{{ REPO_INFO['source_code']['page_url'] }}">{{ REPO_INFO['source_code']['page_name'] }}{% endif %}</a>.
 </p>
 {% endif %}

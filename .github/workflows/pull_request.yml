@@ -1,0 +1,150 @@
+name: Pull Request
+on: 
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'demo/**'
+      - 'templates/**'
+      - 'static/**'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    env:
+      TZ: Asia/Jakarta
+      PYTHON_VERSION: 3.7
+      working-directory: ./demo
+    steps:
+    - name: Checkout the Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Install and Set up Locales
+      run: |
+        case "$(curl -s --max-time 3 -I http://azure.archive.ubuntu.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
+          [23]) echo "The Repository HTTP Server is up"
+                if nc -zw3 azure.archive.ubuntu.com 80; then
+                  echo "The Repository Server has been connected successfully"
+                else
+                  echo "The Repository server is down, changing the Repository Server. Please wait....."
+                  sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+                  sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+                  sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
+                  sudo apt update
+                fi;;
+          *) echo "The Repository HTTP Server is down, changing the Repository Server. Please wait....."
+             sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+             sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+             sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
+             sudo apt update;;
+        esac
+
+        sudo apt install locales locales-all
+        sudo sed -i 's/id_ID\s.*$/id_ID id_ID.utf8/g' /usr/share/locale/locale.alias
+        sudo sed -i 's/# id_ID\.UTF-8/id_ID\.UTF-8/' /etc/locale.gen
+        sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
+        DEBIAN_FRONTEND=noninteractive sudo -E dpkg-reconfigure locales
+        sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: "${{ env.PYTHON_VERSION }}"
+    
+    - name: Install and Set up Poetry
+      run: |
+        curl -sSL https://cdn.statically.io/gh/python-poetry/poetry/master/get-poetry.py | python
+        source ${HOME}/.poetry/env
+        poetry config virtualenvs.in-project true
+        echo "::add-path::${HOME}/.poetry/bin"
+    
+    - name: Set up Python Modules Cache
+      uses: actions/cache@v1
+      with:
+        path: ${{ env.working-directory }}/.venv
+        key: v1-python-modifiedflex_demo-${{ hashFiles('demo/poetry.lock') }}-${{ hashFiles('demo/pyproject.toml') }}
+        restore-keys: | 
+          v1-python-modifiedflex_demo-${{ hashFiles('demo/poetry.lock') }}-
+    
+    - name: Install Python Modules
+      working-directory: ${{ env.working-directory }}
+      run: |
+        poetry install --no-dev
+
+    - name: Building the Blog HTML (Not an Production Demo Blog)
+      working-directory: ${{ env.working-directory }}
+      run: |
+        poetry run make publish
+        USE_CDN=$(poetry run python -c "from publishconf import *; print(USE_CDN)")
+        if [ ${USE_CDN} = 'True' ]
+        then
+          make delete-output-theme
+        fi
+
+    - name: Upload Outputs to Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: site-outputs
+        path: ${{ env.working-directory }}/output
+  
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-18.04
+    env:
+      NODE_ENV: production
+      working-directory: ./demo
+    steps:
+    - name: Checkout the Code
+      uses: actions/checkout@v2
+
+    - name: Download Outputs from Artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: site-outputs
+        path: ${{ env.working-directory }}/output
+
+    - name: Unset NVM, then Get NodeJS and Yarn Version
+      run: |
+        unset ${NVM_DIR}
+        sed -i "/^export NVM_DIR=/d" ~/.bash_profile
+        sed -i "/^\[ \-s \"\$NVM_DIR\/nvm.sh\"/d" ~/.bash_profile
+      
+    - name: Set up NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: "${{ steps.vm.outputs.NVMRC }}"
+
+    - name: Installing Yarn with YVM
+      shell: bash -l -eo pipefail {0}
+      run: | 
+        curl -s https://cdn.statically.io/gh/tophat/yvm/master/scripts/install.js | node
+        {
+         echo 'YVM_DIR=${HOME}/.yvm && export YVM_DIR'
+         echo '. "${YVM_DIR}"/yvm.sh'
+         echo '# JQ_LATEST=$(curl -s https://api.github.com/repos/stedolan/jq/releases/latest | grep "tag_name" | head -1 | cut -d \" -f 4) && export JQ_LATEST'
+         echo '# JQ_DOWNLOAD_URL=https://github.com/stedolan/jq/releases/download/${JQ_LATEST}/jq-linux64 && export JQ_DOWNLOAD_URL'
+        } >> ${HOME}/.bash_profile
+        source ${HOME}/.bash_profile
+        yvm install "${{ steps.vm.outputs.YVMRC }}" && yvm set-default "${{ steps.vm.outputs.YVMRC }}"
+      
+    - name: Installing Netlify CLI with Yarn
+      shell: bash -l -eo pipefail {0}
+      run: |
+        yarn global add netlify-cli
+        echo "::set-env name=GIT_COMMIT_HASH::$(git log --format="%h" -n 1 ${GITHUB_SHA})"
+        echo "::set-env name=GIT_COMMIT_MESSAGE::$(git log --format="%s" -n 1 ${GITHUB_SHA})"
+        echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+        echo "::add-path::$(yarn global bin)"
+      
+    - name: Deploying with Netlify (Preview Mode)
+      shell: bash -l -eo pipefail {0}
+      working-directory: ${{ env.working-directory }}
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      run: |
+        netlify deploy --dir=./output -m "GitHub Actions (${GIT_COMMIT_HASH})":" ${BRANCH_NAME} - ${GIT_COMMIT_MESSAGE}"

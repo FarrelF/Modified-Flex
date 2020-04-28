@@ -1,5 +1,5 @@
 <p>
-  Hak Cipta &copy; {{ COPYRIGHT_YEAR }} {{ COPYRIGHT_NAME }} - Semua konten di dalam blog ini (kecuali jika di nyatakan <a href="{{ CC_LICENSE['otherwise-noted-url'] }}">sebaliknya</a>), di lisensi kan di bawah Lisensi "<a rel="license" href="https://creativecommons.org/licenses/{{ CC_LICENSE['slug'] }}/{{ CC_LICENSE['version'] }}/">{{ CC_LICENSE['name'] }} {{ CC_LICENSE['version'] }}</a>"
+  Hak Cipta &copy; {{ COPYRIGHT_YEAR }} {{ COPYRIGHT_NAME }} - Semua konten di dalam blog ini {% if CC_LICENSE['otherwise-noted-url'] %}(kecuali jika di nyatakan <a href="{{ CC_LICENSE['otherwise-noted-url'] }}">sebaliknya</a>){% endif %}, di lisensi kan di bawah Lisensi "<a rel="license" href="https://creativecommons.org/licenses/{{ CC_LICENSE['slug'] }}/{{ CC_LICENSE['version'] }}/">{{ CC_LICENSE['name'] }} {{ CC_LICENSE['version'] }}</a>"
 </p>
 {% if REPO_INFO['is_source_available'] == True %}
 {% include "partial/source_code.html" %}

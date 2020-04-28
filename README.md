@@ -1,5 +1,5 @@
 # Farrel Franqois - Modified Flex
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ddab5732-cef4-46e9-b0cc-1653dcad8636/deploy-status)](https://app.netlify.com/sites/modifiedflex-demo/deploys)
 Ini merupakan versi modifikasi dari salah satu Tema [Pelican](http://blog.getpelican.com/) yang minimalis, yakni [Flex](https://github.com/alexandrevicenzi/Flex/). Tema ini hanya saya gunakan untuk [Blog saya saja](https://farrel.franqois.id), jadi saya tidak bisa menjamin bahwa tema ini akan cocok untuk penggunaan Anda.
 
 ## Install
@@ -12,6 +12,7 @@ Saat ini, untuk dokumentasi nya, belum saya buat sama sekali. Jadi untuk dokumen
 
 ## Contoh langsung
 Kamu bisa melihat seperti apa tema ini pada [https://farrel.franqois.id](https://farrel.franqois.id).
+Jika Anda ingin demo nya, silahkan kunjungi [https://flex-demo.farrel.franqois.id](https://flex-demo.farrel.franqois.id)
 
 ## Kontribusi
 Pastikan **Selalu** membuka tiket 'Issue' sebelum kamu membuatkan PR (_Pull Request_) nya.

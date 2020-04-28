@@ -358,6 +358,9 @@
     {% endblock %}
 
     <footer>
+      {% if DEMO_MODE == True %}
+      <p>Situs ini merupakan situs web demo untuk Tema Flex yang telah di modifikasi. Jadi, mohon harap jangan benar-benar menganggap ini sebagai blog asli nya.</p>
+      {% endif %}
       {% if CC_LICENSE %}
         {% include "partial/cc_license.html" %}
       {% else %}

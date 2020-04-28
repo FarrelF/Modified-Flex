@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "modified-flex-demo"
+version = "0.0.1"
+description = "This is an Site for Modified Flex Demo"
+authors = ["Farrel Franqois <farrel@franqois.id>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+Babel = "*"
+beautifulsoup4 = "*"
+GitPython = "*"
+invoke = "*"
+Markdown = "*"
+pelican = "*"
+pelican-extended-sitemap = "*"
+pymdown-extensions = "*"
+pelican-htmlmin = "*"
+tzlocal = "*"
+
+[tool.poetry.dev-dependencies]
+pylint = "*"
+livereload = "*"
+typogrify = "*"
+doc8 = "*"
+autopep8 = "*"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
