@@ -112,6 +112,9 @@ jobs:
         unset ${NVM_DIR}
         sed -i "/^export NVM_DIR=/d" ~/.bash_profile
         sed -i "/^\[ \-s \"\$NVM_DIR\/nvm.sh\"/d" ~/.bash_profile
+        echo "::set-output name=NVMRC::$(cat .nvmrc)"
+        echo "::set-output name=YVMRC::$(cat .yvmrc)"
+      id: vm
       
     - name: Set up NodeJS
       uses: actions/setup-node@v1
