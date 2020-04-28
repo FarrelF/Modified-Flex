@@ -28,10 +28,24 @@ DELETE_OUTPUT_DIRECTORY = True
 EXTRA_FILES_NAME = [
     '_headers',
     '_redirects',
-    'ads.txt',
-    'keybase.txt',
-    'BingSiteAuth.xml',
+    'CNAME'
 ]
+
+EXTRA_FILES_DIR = 'extras'  # Menentukan Lokasi Berkas Tambahan
+
+# Menambahkan Berkas-berkas Tambahan saat di terbitkan nanti.
+if type(EXTRA_FILES_NAME) is str:
+    STATIC_PATHS.append('{0}/{1}'.format(EXTRA_FILES_DIR, EXTRA_FILES_NAME))
+    EXTRA_PATH_METADATA['{0}/{1}'.format(EXTRA_FILES_DIR, EXTRA_FILES_NAME)] = {
+        'path': '{0}'.format(EXTRA_FILES_NAME)
+    }
+
+elif type(EXTRA_FILES_NAME) is list or tuple:
+    for filenames in EXTRA_FILES_NAME:
+        STATIC_PATHS.append('{0}/{1}'.format(EXTRA_FILES_DIR, filenames))
+        EXTRA_PATH_METADATA['{0}/{1}'.format(EXTRA_FILES_DIR, filenames)] = {
+            'path': '{0}'.format(filenames)
+        }
 
 if USE_MINIFIED_SCRIPTS == True:
     CUSTOM_JS_NAME = 'custom.min.js'
