@@ -4,6 +4,7 @@ on:
     branches:
       - master
     paths:
+      - '.github/workflows/**'
       - 'demo/**'
       - 'templates/**'
       - 'static/**'
