@@ -1,5 +1,5 @@
 # Farrel Franqois - Modified Flex
-[![Build and Deploy](https://github.com/FarrelF/Modified-Flex/workflows/Build%20and%20Deploy/badge.svg?branch=master)](https://github.com/FarrelF/Modified-Flex/actions?query=workflow%3A%22Build+and+Deploy%22) [![Netlify Status](https://api.netlify.com/api/v1/badges/ddab5732-cef4-46e9-b0cc-1653dcad8636/deploy-status)](https://app.netlify.com/sites/modifiedflex-demo/deploys)
+[![Build and Deploy](https://github.com/FarrelF/Modified-Flex/workflows/Build%20and%20Deploy/badge.svg?branch=master)](https://github.com/FarrelF/Modified-Flex/actions?query=workflow%3A%22Build+and+Deploy%22)
 
 Ini merupakan versi modifikasi dari salah satu Tema [Pelican](http://blog.getpelican.com/) yang minimalis, yakni [Flex](https://github.com/alexandrevicenzi/Flex/). Tema ini hanya saya gunakan untuk [Blog saya saja](https://farrel.franqois.id), jadi saya tidak bisa menjamin bahwa tema ini akan cocok untuk penggunaan Anda.
 

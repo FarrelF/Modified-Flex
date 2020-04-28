@@ -15,6 +15,8 @@ SITEURL = 'https://flex-demo.farrel.franqois.id'
 RELATIVE_URLS = False
 
 USE_CDN = False
+USE_MINIFIED_SCRIPTS = True
+USE_MINIFIED_FONT_CSS = True
 
 CC_LICENSE['distribution-type'] = 'custom'
 CC_LICENSE['custom-url'] = 'https://cdn.statically.io/img/images.farrel.franqois.id/q=90,ssl=1/misc/cc'
@@ -28,6 +30,8 @@ DELETE_OUTPUT_DIRECTORY = True
 EXTRA_FILES_NAME = [
     '_headers',
     '_redirects',
+    'custom.min.js',
+    'custom.min.css',
     'CNAME'
 ]
 
