@@ -272,7 +272,7 @@ MARKDOWN = {
                     'width': '16px'
                 },
                 'classes': 'twemoji_emojis',
-                'image_path': 'https://cdn.statically.io/gh/twitter/twemoji/v12.1.5/assets/svg/',
+                'image_path': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@v12.1.5/assets/svg/',
             },
         },
         'pymdownx.superfences': {},
@@ -361,6 +361,7 @@ DEFAULT_PAGINATION = 5
 LUMINOUS = {
     'activate': True,
     'version': 'v2.3.2',
+    'cdn': 'jsdelivr',
     'script': {
         'integrity_hash': 'sha256-JtowJgZIxtr4WObMQMDqCojFv0TMRb438K2bLmjYS8Q= sha384-fycZFb7rivGKtu0pBXNMrvngmHPp+HqL5Sq+f7MzM0FfF9+Y2CD0o5tEksQlKVco sha512-m4kT2yNAKoSDZ6+orVQhqgrIMwAng5X/wBEiNeegedjIRhZRnlgyGzYqkzJ1HR1wn0aidznu8O4Yzz7bKTSrFQ=='
     },
@@ -374,6 +375,7 @@ LUMINOUS = {
 DRIFT = {
     'activate': False,
     'version': 'v1.4.0',
+    'cdn': 'jsdelivr',
     'script': {
         'integrity_hash': 'sha256-aFEn7VlBa8PmHn8vQoltD9oX8Tkv124tmWKPvAuiHJo= sha384-5egwFCf6lmPdG3pnKadFiJi2Zt+bHNb2eC0jwPXTtWLyCNZXA8MezB5IxHeDv4a5 sha512-I3Ntq1EyOaSknyeFTaiXsNMIqDBLTIlCPWXyKMA+XdXvs0MAk3WlONybS7Iyn8TYn3jTGMhCikUdWT5ktEO3dw=='
     },

@@ -81,11 +81,27 @@
   {% endif %}
 
   {% if LUMINOUS.activate == True %}
+    {% if LUMINOUS.cdn == 'statically' %}
     <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% elif LUMINOUS.cdn == 'jsdelivr' %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/imgix/luminous@{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% elif LUMINOUS.cdn == 'unpkg' %}
+    <link rel="stylesheet" href="https://unpkg.com/luminous-lightbox@{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% else %}
+    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% endif %}
   {% endif %}
 
   {% if DRIFT.activate == True %}
+    {% if DRIFT.cdn == 'statically' %}
     <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% elif DRIFT.cdn == 'jsdelivr' %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/imgix/drift@{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% elif DRIFT.cdn == 'unpkg' %}
+    <link rel="stylesheet" href="https://unpkg.com/drift-zoom@{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% else %}
+    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    {% endif %}
   {% endif %}
 
   {% if USE_BOOTSTRAP %}
@@ -428,7 +444,15 @@
   {% endif %}
 
   {% if DRIFT.activate == True %}
+    {% if DRIFT.cdn == 'statically' %}
     <script src="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/Drift.min.js"{% if DRIFT.script.integrity_hash %} integrity="{{ DRIFT.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% elif DRIFT.cdn == 'jsdelivr' %}
+    <script src="https://cdn.jsdelivr.net/gh/imgix/drift@{{ DRIFT.version }}/dist/Drift.min.js"{% if DRIFT.script.integrity_hash %} integrity="{{ DRIFT.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% elif DRIFT.cdn == 'unpkg' %}
+    <script src="https://unpkg.com/drift-zoom@{{ DRIFT.version }}/dist/Drift.min.js"{% if DRIFT.script.integrity_hash %} integrity="{{ DRIFT.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% else %}
+    <script src="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/Drift.min.js"{% if DRIFT.script.integrity_hash %} integrity="{{ DRIFT.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% endif %}
     {% if USE_CDN != True %}
       {% if USE_MINIFIED_SCRIPTS == True %}
       <script type="application/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/scripts/drift_settings.min.js"></script>
@@ -445,7 +469,15 @@
   {% endif %}
 
   {% if LUMINOUS.activate == True %}
+  {% if LUMINOUS.cdn == 'statically' %}
   <script src="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/Luminous.min.js"{% if LUMINOUS.script.integrity_hash %} integrity="{{ LUMINOUS.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+  {% elif LUMINOUS.cdn == 'jsdelivr' %}
+  <script src="https://cdn.jsdelivr.net/gh/imgix/luminous@{{ LUMINOUS.version }}/dist/Luminous.min.js"{% if LUMINOUS.script.integrity_hash %} integrity="{{ LUMINOUS.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+  {% elif LUMINOUS.cdn == 'unpkg' %}
+  <script src="https://unpkg.com/luminous-lightbox@{{ LUMINOUS.version }}/dist/Luminous.min.js"{% if LUMINOUS.script.integrity_hash %} integrity="{{ LUMINOUS.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+  {% else %}
+  <script src="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/Luminous.min.js"{% if LUMINOUS.script.integrity_hash %} integrity="{{ LUMINOUS.script.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+  {% endif %}
   <script type="application/javascript">new LuminousGallery(document.querySelectorAll("{% if LUMINOUS.content_selector %}{{ LUMINOUS.content_selector }}{% else %}luminous-image-gallery{% endif %}"),{arrowNavigation:!0}{% if LUMINOUS.caption == True %},{caption:function(e){return e.querySelector("img").getAttribute("alt")}}{% endif %});</script>
   {% endif %}
   {% if DISQUS_LAZYLOAD == True %}
