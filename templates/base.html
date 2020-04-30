@@ -4,6 +4,42 @@
   {% endmacro %}
 {% endif %}
 
+{# URLs for CDN loaded version of Imgix Luminous #}
+{% set LUMINOUS_CDN_URLS = {
+    'statically': 'https://cdn.statically.io/gh/imgix/luminous/', 
+    'jsdelivr': 'https://cdn.jsdelivr.net/gh/imgix/luminous@', 
+    'unpkg': 'https://unpkg.com/luminous-lightbox@', 
+    'cdnjs': 'https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/'
+  }
+%}
+
+{# URLs for CDN loaded version of Imgix Drift #}
+{% set DRIFT_CDN_URLS = {
+    'statically': 'https://cdn.statically.io/gh/imgix/drift/', 
+    'jsdelivr': 'https://cdn.jsdelivr.net/gh/imgix/drift@', 
+    'unpkg': 'https://unpkg.com/drift-zoom@', 
+    'cdnjs': 'https://cdnjs.cloudflare.com/ajax/libs/drift-zoom/'
+  } 
+%}
+
+{# URLs for CDN loaded version of less.js #}
+{% set LESS_CDN_URLS = {
+    'statically': 'https://cdn.statically.io/gh/less/less.js/',
+    'jsdelivr': 'https://cdn.jsdelivr.net/gh/less/less.js@',
+    'unpkg': 'https://unpkg.com/less@',
+    'cdnjs': 'https://cdnjs.cloudflare.com/ajax/libs/less.js/'
+  }
+%}
+
+{# URLs for CDN loaded version of Highlight.js #}
+{% set HIGHLIGHTJS_CDN_URLS = {
+    'statically': 'https://cdn.statically.io/gh/highlightjs/cdn-release/',
+    'jsdelivr': 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@',
+    'unpkg': 'https://unpkg.com/@highlightjs/cdn-assets@',
+    'cdnjs': 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/'
+  }
+%}
+
 <!DOCTYPE html>
 <html lang="{{ DEFAULT_LANG }}">
 <head>
@@ -71,7 +107,18 @@
     {% elif USE_CDN == False %}
     <link rel="stylesheet/less" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/stylesheet/style.less">
     {% endif %}
-    <script src="https://cdn.statically.io/gh/less/less.js/{{ LESS.version }}/dist/less.min.js"{% if LESS.integrity_hash %} integrity="{{ LESS.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% if LESS.cdn == 'statically' %}
+      {% set LESS_CDN_URL = LESS_CDN_URLS['statically'] %}
+    {% elif LESS.cdn == 'jsdelivr' %}
+      {% set LESS_CDN_URL = LESS_CDN_URLS['jsdelivr'] %}
+    {% elif LESS.cdn == 'cdnjs' %}
+      {% set LESS_CDN_URL = LESS_CDN_URLS['cdnjs'] %}
+    {% elif LESS.cdn == 'unpkg' %}
+      {% set LESS_CDN_URL = LESS_CDN_URLS['unpkg'] %}
+    {% else %}
+      {% set LESS_CDN = LESS_CDN_URLS['statically'] %}
+    {% endif %}
+    <script src="{{ LESS_CDN_URL }}{{ LESS.version }}/{% if LESS.cdn != 'cdnjs' %}dist/less.min.js{% else %}less.min.js{% endif %}"{% if LESS.integrity_hash %} integrity="{{ LESS.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
   {% else %}
     {% if USE_CDN == True %}
     <link rel="stylesheet" type="text/css" href="{{ CDN_STATIC_THEME_URL }}/stylesheet/style.min.css">
@@ -82,26 +129,32 @@
 
   {% if LUMINOUS.activate == True %}
     {% if LUMINOUS.cdn == 'statically' %}
-    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set LUMINOUS_CDN_URL = LUMINOUS_CDN_URLS['statically'] %}
     {% elif LUMINOUS.cdn == 'jsdelivr' %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/imgix/luminous@{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set LUMINOUS_CDN_URL = LUMINOUS_CDN_URLS['jsdelivr'] %}
     {% elif LUMINOUS.cdn == 'unpkg' %}
-    <link rel="stylesheet" href="https://unpkg.com/luminous-lightbox@{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set LUMINOUS_CDN_URL = LUMINOUS_CDN_URLS['unpkg'] %}
+    {% elif LUMINOUS.cdn == 'cdnjs' %}
+      {% set LUMINOUS_CDN_URL = LUMINOUS_CDN_URLS['cdnjs'] %}
     {% else %}
-    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/luminous/{{ LUMINOUS.version }}/dist/luminous-basic.min.css"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set LUMINOUS_CDN_URL = LUMINOUS_CDN_URLS['statically'] %}
     {% endif %}
+    <link rel="stylesheet" href="{{ LUMINOUS_CDN_URL }}{{ LUMINOUS.version }}/{% if LUMINOUS.cdn != 'cdnjs' %}dist/luminous-basic.min.css{% else %}luminous-basic.min.css{% endif %}"{% if LUMINOUS.style.integrity_hash %} integrity="{{ LUMINOUS.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
   {% endif %}
 
   {% if DRIFT.activate == True %}
     {% if DRIFT.cdn == 'statically' %}
-    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set DRIFT_CDN_URL = DRIFT_CDN_URLS['statically'] %}
     {% elif DRIFT.cdn == 'jsdelivr' %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/imgix/drift@{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set DRIFT_CDN_URL = DRIFT_CDN_URLS['jsdelivr'] %}
     {% elif DRIFT.cdn == 'unpkg' %}
-    <link rel="stylesheet" href="https://unpkg.com/drift-zoom@{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set DRIFT_CDN_URL = DRIFT_CDN_URLS['unpkg'] %}
+    {% elif DRIFT.cdn == 'cdnjs' %}
+      {% set DRIFT_CDN_URL = DRIFT_CDN_URLS['cdnjs'] %}
     {% else %}
-    <link rel="stylesheet" href="https://cdn.statically.io/gh/imgix/drift/{{ DRIFT.version }}/dist/drift-basic.min.css"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      {% set DRIFT_CDN_URL = DRIFT_CDN_URLS['statically'] %}
     {% endif %}
+    <link rel="stylesheet" href="{{ DRIFT_CDN_URL }}{{ DRIFT.version }}/{% if DRIFT.cdn != 'cdnjs' %}dist/drift-basic.min.css{% else %}drift-basic.min.css{% endif %}"{% if DRIFT.style.integrity_hash %} integrity="{{ DRIFT.style.integrity_hash }}" crossorigin="anonymous"{% endif %}>
   {% endif %}
 
   {% if USE_BOOTSTRAP %}
@@ -139,20 +192,31 @@
     {% endif %}
   {% endif %}
   {% if HIGHLIGHTJS and HIGHLIGHTJS.use_highlightjs == True and HIGHLIGHTJS.version %}
-    <script type="application/javascript" src="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/highlight.min.js"{% if HIGHLIGHTJS.integrity_hash %} integrity="{{ HIGHLIGHTJS.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
-    {% if HIGHLIGHTJS.linenums == True and HIGHLIGHTJS.linenums_config.version %}
-    <script type="application/javascript" src="{% if HIGHLIGHTJS.linenums_config.custom_url %}{{ HIGHLIGHTJS.linenums_config.custom_url }}{% else %}https://cdn.statically.io/gh/wcoder/highlightjs-line-numbers.js/{{ HIGHLIGHTJS.linenums_config.version }}{% endif %}/dist/highlightjs-line-numbers.min.js"{% if HIGHLIGHTJS.linenums_config.integrity_hash %} integrity="{{ HIGHLIGHTJS.linenums_config.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% if HIGHLIGHTJS.cdn == 'statically' %}
+      {% set HIGHLIGHTJS_CDN_URL = HIGHLIGHTJS_CDN_URLS['statically'] %}
+    {% elif HIGHLIGHTJS.cdn == 'jsdelivr' %}
+      {% set HIGHLIGHTJS_CDN_URL = HIGHLIGHTJS_CDN_URLS['jsdelivr'] %}
+    {% elif HIGHLIGHTJS.cdn == 'cdnjs' %}
+      {% set HIGHLIGHTJS_CDN_URL = HIGHLIGHTJS_CDN_URLS['cdnjs'] %}
+    {% elif HIGHLIGHTJS.cdn == 'unpkg' %}
+      {% set HIGHLIGHTJS_CDN_URL = HIGHLIGHTJS_CDN_URLS['unpkg'] %}
+    {% else %}
+      {% set HIGHLIGHTJS_CDN_URL = HIGHLIGHTJS_CDN_URLS['statically'] %}
     {% endif %}
-    <link rel="stylesheet" type="text/css" href="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/styles/{{ HIGHLIGHTJS.styles.dark_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.dark_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.dark_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+    <script type="application/javascript" src="{{ HIGHLIGHTJS_CDN_URL }}{{ HIGHLIGHTJS.version }}/{% if HIGHLIGHTJS.cdn != 'cdnjs' or HIGHLIGHTJS.cdn != 'unpkg' %}build/highlight.min.js{% else %}highlight.min.js{% endif %}"{% if HIGHLIGHTJS.integrity_hash %} integrity="{{ HIGHLIGHTJS.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% if HIGHLIGHTJS.linenums == True and HIGHLIGHTJS.linenums_config.version %}
+      <script type="application/javascript" src="{% if HIGHLIGHTJS.linenums_config.custom_url %}{{ HIGHLIGHTJS.linenums_config.custom_url }}{% else %}https://cdn.statically.io/gh/wcoder/highlightjs-line-numbers.js/{{ HIGHLIGHTJS.linenums_config.version }}{% endif %}/dist/highlightjs-line-numbers.min.js"{% if HIGHLIGHTJS.linenums_config.integrity_hash %} integrity="{{ HIGHLIGHTJS.linenums_config.integrity_hash }}" crossorigin="anonymous"{% endif %}></script>
+    {% endif %}
+      <link rel="stylesheet" type="text/css" href="{{ HIGHLIGHTJS_CDN_URL }}{{ HIGHLIGHTJS.version }}/{% if HIGHLIGHTJS.cdn != 'cdnjs' or HIGHLIGHTJS.cdn != 'unpkg' %}build/styles{% else %}styles{% endif %}/{{ HIGHLIGHTJS.styles.dark_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.dark_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.dark_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
     {% if HIGHLIGHTJS.styles.dark_mode.name %}
-    <link rel="alternate stylesheet" type="text/css" href="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/styles/{{ HIGHLIGHTJS.styles.dark_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.dark_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.dark_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      <link rel="alternate stylesheet" type="text/css" href="{{ HIGHLIGHTJS_CDN_URL }}{{ HIGHLIGHTJS.version }}/{% if HIGHLIGHTJS.cdn != 'cdnjs' or HIGHLIGHTJS.cdn != 'unpkg' %}build/styles{% else %}styles{% endif %}/{{ HIGHLIGHTJS.styles.dark_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.dark_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.dark_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
     {% endif %}
     {% if HIGHLIGHTJS.styles.light_mode.name %}
-    <link rel="alternate stylesheet" type="text/css" href="{% if HIGHLIGHTJS.custom_url %}{{ HIGHLIGHTJS.custom_url }}{% else %}https://cdn.statically.io/gh/highlightjs/cdn-release/{{ HIGHLIGHTJS.version }}{% endif %}/build/styles/{{ HIGHLIGHTJS.styles.light_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.light_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.light_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
+      <link rel="alternate stylesheet" type="text/css" href="{{ HIGHLIGHTJS_CDN_URL }}{{ HIGHLIGHTJS.version }}/{% if HIGHLIGHTJS.cdn != 'cdnjs' or HIGHLIGHTJS.cdn != 'unpkg' %}build/styles{% else %}styles{% endif %}/{{ HIGHLIGHTJS.styles.light_mode.name }}.min.css"{% if HIGHLIGHTJS.styles.light_mode.integrity_hash %} integrity="{{ HIGHLIGHTJS.styles.light_mode.integrity_hash }}" crossorigin="anonymous"{% endif %}>
     {% endif %}
-    <script>hljs.initHighlightingOnLoad();</script>
+      <script>hljs.initHighlightingOnLoad();</script>
     {% if HIGHLIGHTJS.linenums == True and HIGHLIGHTJS.linenums_config.version %}
-    <script>hljs.initLineNumbersOnLoad();</script>
+      <script>hljs.initLineNumbersOnLoad();</script>
     {% endif %}
   {% endif %}
   {% if FEED_ALL_ATOM %}

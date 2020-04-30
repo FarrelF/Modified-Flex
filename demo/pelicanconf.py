@@ -219,6 +219,7 @@ USE_PYGMENTS = False
 HIGHLIGHTJS = {
     'use_highlightjs': True,
     'version': '9.18.1',
+    'cdn': 'jsdelivr',
     'integrity_hash': '',
     'styles': {
         'dark_mode': {
